@@ -175,7 +175,7 @@ BOOL CSerialToolDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
 	// TODO: Add extra initialization here
-	CString title;						//Çø·Ö²»Í¬½ø³Ì
+	CString title;						//åŒºåˆ†ä¸åŒè¿›ç¨‹
 	title.Format("serialTool-%d", this->m_hWnd);
 	SetWindowText(title);
 
@@ -225,7 +225,7 @@ BOOL CSerialToolDlg::OnInitDialog()
 	m_SendCycleEdit.SetWindowText("100");
 	m_SendCycleEdit.SetLimitText(SENDCYCLEMAXNUM);
 
-	//ÌáÊ¾ÆøÅİ
+	//æç¤ºæ°”æ³¡
 	m_tooltip.Create(this);
 	m_tooltip.AddTool(GetDlgItem(IDC_EDIT_SENDCYCLE), "1~999");
 	m_tooltip.Activate(TRUE);
@@ -294,18 +294,18 @@ void CSerialToolDlg::OnCommMscomm()
 	VARIANT variant_inp;
 	COleSafeArray safearray_inp;
 	LONG len;
-	BYTE rxdata[2048];								//ÉèÖÃBYTEÊı×é An 8-bit integerthat is not signed.
+	BYTE rxdata[2048];								//è®¾ç½®BYTEæ•°ç»„ An 8-bit integerthat is not signed.
 	CString strtemp, strPack;
 
-	if(m_mscomm.GetCommEvent()==2)					//ÊÂ¼şÖµÎª2±íÊ¾½ÓÊÕ»º³åÇøÄÚÓĞ×Ö·û
+	if(m_mscomm.GetCommEvent()==2)					//äº‹ä»¶å€¼ä¸º2è¡¨ç¤ºæ¥æ”¶ç¼“å†²åŒºå†…æœ‰å­—ç¬¦
 	{
-		variant_inp=m_mscomm.GetInput();			//¶Á»º³åÇø
-		safearray_inp=variant_inp;					//VARIANTĞÍ±äÁ¿×ª»»ÎªColeSafeArrayĞÍ±äÁ¿
-		len=safearray_inp.GetOneDimSize();			//µÃµ½ÓĞĞ§Êı¾İ³¤¶È
+		variant_inp=m_mscomm.GetInput();			//è¯»ç¼“å†²åŒº
+		safearray_inp=variant_inp;					//VARIANTå‹å˜é‡è½¬æ¢ä¸ºColeSafeArrayå‹å˜é‡
+		len=safearray_inp.GetOneDimSize();			//å¾—åˆ°æœ‰æ•ˆæ•°æ®é•¿åº¦
 
 		for(long i=0; i<len; i++)
 		{
-			safearray_inp.GetElement(&i,rxdata+i);	//×ª»»ÎªBYTEĞÍÊı×é
+			safearray_inp.GetElement(&i,rxdata+i);	//è½¬æ¢ä¸ºBYTEå‹æ•°ç»„
 		}
 
 		strPack.Empty();
@@ -338,10 +338,10 @@ void CSerialToolDlg::OnCommMscomm()
 void CSerialToolDlg::OnButtonOpencom()
 {
 	// TODO: Add your control notification handler code here
-	if(m_mscomm.GetPortOpen())					//Èç¹û´®¿ÚÊÇ´ò¿ªµÄ£¬ÔòĞĞ¹Ø±Õ´®¿Ú
+	if(m_mscomm.GetPortOpen())					//å¦‚æœä¸²å£æ˜¯æ‰“å¼€çš„ï¼Œåˆ™è¡Œå…³é—­ä¸²å£
     {
-		KillTimer(2);				//¹Ø±Õ½ÓÊÕÇøÏÔÊ¾Ë¢ĞÂµÄ¶¨Ê±Æ÷
-		((CComboBox *)GetDlgItem(IDC_COMBO_PORT))->EnableWindow(TRUE);			//´ò¿ªÉèÖÃ²ÎÊıcombox
+		KillTimer(2);				//å…³é—­æ¥æ”¶åŒºæ˜¾ç¤ºåˆ·æ–°çš„å®šæ—¶å™¨
+		((CComboBox *)GetDlgItem(IDC_COMBO_PORT))->EnableWindow(TRUE);			//æ‰“å¼€è®¾ç½®å‚æ•°combox
 		((CComboBox *)GetDlgItem(IDC_COMBO_BAUD))->EnableWindow(TRUE);
 		((CComboBox *)GetDlgItem(IDC_COMBO_PARITY))->EnableWindow(TRUE);
 		((CComboBox *)GetDlgItem(IDC_COMBO_BIT))->EnableWindow(TRUE);
@@ -349,9 +349,8 @@ void CSerialToolDlg::OnButtonOpencom()
 		
 		m_OpensendfileBut.EnableWindow(FALSE);
 		m_SendBut.EnableWindow(FALSE);
-
-        m_mscomm.SetPortOpen(FALSE);
-		m_OpenCommBut.SetWindowText( _T("´ò¿ª´®¿Ú") );
+		m_mscomm.SetPortOpen(FALSE);
+		m_OpenCommBut.SetWindowText( _T("æ‰“å¼€ä¸²å£") );
 		m_bOpenComm = FALSE;
 		m_bTimerStart = FALSE;
 
@@ -362,7 +361,7 @@ void CSerialToolDlg::OnButtonOpencom()
 		if (m_fileSend.m_pStream)
 		{	
 			m_fileSend.Close();
-			m_OpensendfileBut.SetWindowText("´ò¿ª·¢ËÍÎÄ¼ş");
+			m_OpensendfileBut.SetWindowText("æ‰“å¼€å‘é€æ–‡ä»¶");
 			m_SendEdit.EnableWindow(TRUE);
 			m_SendEdit.SetWindowText(NULL);
 		}
@@ -371,12 +370,13 @@ void CSerialToolDlg::OnButtonOpencom()
 		{
 			m_fileRecv.Close();
 			m_bRecordRecv = FALSE;
-			m_RecvSaveBut.SetWindowText("¼ÇÂ¼½ÓÊÕÇø");
+			m_RecvSaveBut.SetWindowText("è®°å½•æ¥æ”¶åŒº");
 		}
     }
 	else
 	{
-		SetTimer(2, 200, NULL);		//´ò¿ª½ÓÊÕÇøÏÔÊ¾Ë¢ĞÂµÄ¶¨Ê±Æ÷
+		m_PortNumCom.GetLBText( m_PortNumCom.GetCurSel(), m_PortNum);
+		SetTimer(2, 200, NULL);		//æ‰“å¼€æ¥æ”¶åŒºæ˜¾ç¤ºåˆ·æ–°çš„å®šæ—¶å™¨
 		m_PortNum.Delete(0, 3);
 		m_mscomm.SetCommPort(_ttoi(m_PortNum));
 		CString strPara;
@@ -388,17 +388,17 @@ void CSerialToolDlg::OnButtonOpencom()
 		strPara+=",";
 		strPara+=m_StopBit;
 		m_mscomm.SetSettings(strPara);
-		m_mscomm.SetInBufferSize(1024);			//½ÓÊÕ»º³åÇø
+		m_mscomm.SetInBufferSize(1024);			//æ¥æ”¶ç¼“å†²åŒº
 		m_mscomm.SetInBufferCount(0);
-		m_mscomm.SetOutBufferSize(1024);		//·¢ËÍ»º³åÇø
-		m_mscomm.SetInputLen(0);				//ÉèÖÃµ±Ç°½ÓÊÕÇøÊı¾İ³¤¶ÈÎª0,±íÊ¾È«²¿¶ÁÈ¡
-		m_mscomm.SetInputMode(1);				//ÒÔ¶ş½øÖÆ·½Ê½¶ÁĞ´Êı¾İ   0ÊÇ×Ö·û, 1ÊÇ¶ş½øÖÆ
-		m_mscomm.SetRThreshold(1);				//½ÓÊÕ»º³åÇøÓĞ1¸ö¼°1¸öÒÔÉÏ×Ö·ûÊ±£¬½«Òı·¢½ÓÊÕÊı¾İµÄ  OnComm
+		m_mscomm.SetOutBufferSize(1024);		//å‘é€ç¼“å†²åŒº
+		m_mscomm.SetInputLen(0);				//è®¾ç½®å½“å‰æ¥æ”¶åŒºæ•°æ®é•¿åº¦ä¸º0,è¡¨ç¤ºå…¨éƒ¨è¯»å–
+		m_mscomm.SetInputMode(1);				//ä»¥äºŒè¿›åˆ¶æ–¹å¼è¯»å†™æ•°æ®   0æ˜¯å­—ç¬¦, 1æ˜¯äºŒè¿›åˆ¶
+		m_mscomm.SetRThreshold(1);				//æ¥æ”¶ç¼“å†²åŒºæœ‰1ä¸ªåŠ1ä¸ªä»¥ä¸Šå­—ç¬¦æ—¶ï¼Œå°†å¼•å‘æ¥æ”¶æ•°æ®çš„  OnComm
 		m_mscomm.SetPortOpen(TRUE);
 
 		if (m_mscomm.GetPortOpen())
 		{
-			((CComboBox *)GetDlgItem(IDC_COMBO_PORT))->EnableWindow(FALSE);			//¹Ø±ÕÉèÖÃ²ÎÊıcombox
+			((CComboBox *)GetDlgItem(IDC_COMBO_PORT))->EnableWindow(FALSE);			//å…³é—­è®¾ç½®å‚æ•°combox
 			((CComboBox *)GetDlgItem(IDC_COMBO_BAUD))->EnableWindow(FALSE);
 			((CComboBox *)GetDlgItem(IDC_COMBO_PARITY))->EnableWindow(FALSE);
 			((CComboBox *)GetDlgItem(IDC_COMBO_BIT))->EnableWindow(FALSE);
@@ -407,12 +407,12 @@ void CSerialToolDlg::OnButtonOpencom()
 			m_OpensendfileBut.EnableWindow(TRUE);
 			m_SendBut.EnableWindow(TRUE);
 
-			m_OpenCommBut.SetWindowText( _T("¹Ø±Õ´®¿Ú") );
+			m_OpenCommBut.SetWindowText( _T("å…³é—­ä¸²å£") );
 			m_bOpenComm = TRUE;
 		}
 		else
 		{
-			MessageBox("´®¿Ú´ò¿ªÊ§°Ü!!!");
+			MessageBox("ä¸²å£æ‰“å¼€å¤±è´¥!!!");
 			return;
 		}
 	}
@@ -472,13 +472,13 @@ void CSerialToolDlg::OnSelchangeComboFlow()
 void CSerialToolDlg::OnButtonOpensendfile() 
 {
 	// TODO: Add your control notification handler code here
-    LPCTSTR szFilter = "ÎÄ¼ş (*.txt)|*.txt|ËùÓĞÎÄ¼ş (*.*)|*.*||";
+    LPCTSTR szFilter = "æ–‡ä»¶ (*.txt)|*.txt|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*||";
 	CString strPathName;
 	
 	if (m_fileSend.m_pStream)
 	{	
 		m_fileSend.Close();
-		m_OpensendfileBut.SetWindowText("´ò¿ª·¢ËÍÎÄ¼ş");
+		m_OpensendfileBut.SetWindowText("æ‰“å¼€å‘é€æ–‡ä»¶");
 		m_SendEdit.EnableWindow(TRUE);
 		m_SendEdit.SetWindowText(NULL);
 		delete m_pFileText;
@@ -493,11 +493,11 @@ void CSerialToolDlg::OnButtonOpensendfile()
 		
 		if(!m_fileSend.Open(strPathName, CFile::shareExclusive | CFile::modeRead))
 		{
-			AfxMessageBox("´ò¿ªÊ§°Ü£¡");
+			AfxMessageBox("æ‰“å¼€å¤±è´¥ï¼");
 			return ;
 		}
 		
-		//Ëõ¶Ì¹ı³¤ÎÄ¼şÂ·¾¶
+		//ç¼©çŸ­è¿‡é•¿æ–‡ä»¶è·¯å¾„
 		if (strPathName.GetLength() > DISPLAYMAXLENGTH)
 		{
 			strPathName = strPathName.Left(20) + "..." + strPathName.Right(20);
@@ -508,13 +508,13 @@ void CSerialToolDlg::OnButtonOpensendfile()
 
 		
 		m_ProgressSendFile.SetPos(0);
-		m_OpensendfileBut.SetWindowText("¹Ø±Õ·¢ËÍÎÄ¼ş");
+		m_OpensendfileBut.SetWindowText("å…³é—­å‘é€æ–‡ä»¶");
 
 		m_pFileText = new TCHAR[m_fileSend.GetLength()];
 		DWORD fileLen = m_fileSend.GetLength();
-		m_readSendFileLength = m_fileSend.Read(m_pFileText, m_fileSend.GetLength());	//!!!CStdioFileµÄReadº¯Êı»áÈ¥µô'\r'!!!
+		m_readSendFileLength = m_fileSend.Read(m_pFileText, m_fileSend.GetLength());	//!!!CStdioFileçš„Readå‡½æ•°ä¼šå»æ‰'\r'!!!
 		m_pFileCurrentIndex = m_pFileText;
-		m_pFileText[m_readSendFileLength] = '\0';		//ÔÚÓĞĞ§µÄ×Ö·û´®ºó²¹¸ö½áÎ²
+		m_pFileText[m_readSendFileLength] = '\0';		//åœ¨æœ‰æ•ˆçš„å­—ç¬¦ä¸²åè¡¥ä¸ªç»“å°¾
 
 		m_fileSendcentiLength = m_readSendFileLength / FSPROGRESSMAXRANGE;
 		if (0 == m_fileSendcentiLength)
@@ -522,10 +522,10 @@ void CSerialToolDlg::OnButtonOpensendfile()
 			m_fileSendcentiLength = 1;
 		}
 		
-		{	//´ò¿ªÍêÎÄ¼şºó£¬Á¢¿Ì¶ÁÈ¡Ò»°üÊı¾İ£¬×¼±¸ºÃ·¢ËÍ×´Ì¬
+		{	//æ‰“å¼€å®Œæ–‡ä»¶åï¼Œç«‹åˆ»è¯»å–ä¸€åŒ…æ•°æ®ï¼Œå‡†å¤‡å¥½å‘é€çŠ¶æ€
 			m_SendPackStr.Empty();
 			int ret = 0, retCount = 0;
-			while (0 == ret && retCount < 3)		//Ìø¹ı3ĞĞ·Ç·¨×Ö·û´®£¬!!!¾ßÌåĞĞÊıÔÙÂÛ!!!
+			while (0 == ret && retCount < 3)		//è·³è¿‡3è¡Œéæ³•å­—ç¬¦ä¸²ï¼Œ!!!å…·ä½“è¡Œæ•°å†è®º!!!
 			{
 				ret = CSerialToolDlgFunc::ProcessingData(m_pFileCurrentIndex, m_SendPackStr);
 				++retCount;
@@ -572,7 +572,7 @@ void CSerialToolDlg::OnCheckHexsend()
 	BOOL bFLag = m_HexSendChkBut.GetCheck();
 	if(bFLag)
 	{
-		if(IDCANCEL == MessageBox(_T("16½øÖÆ·¢ËÍÊı¾İÒÔ¿Õ¸ñÎª·Ö¸ô·û\neg£º7F 89 2A£¬·Ç·¨ÊäÈë½«±»ºöÂÔ£¡"), NULL, MB_OKCANCEL))
+		if(IDCANCEL == MessageBox(_T("16è¿›åˆ¶å‘é€æ•°æ®ä»¥ç©ºæ ¼ä¸ºåˆ†éš”ç¬¦\negï¼š7F 89 2Aï¼Œéæ³•è¾“å…¥å°†è¢«å¿½ç•¥ï¼"), NULL, MB_OKCANCEL))
 		{
 			m_HexSendChkBut.SetCheck(BST_UNCHECKED);
 			return;
@@ -609,11 +609,11 @@ void CSerialToolDlg::OnClose()
 	{
 		m_bTimerStart = FALSE;
 	}
-	if(m_mscomm.GetPortOpen())				//Èç¹û´®¿ÚÊÇ´ò¿ªµÄ£¬ÔòĞĞ¹Ø±Õ´®¿Ú
+	if(m_mscomm.GetPortOpen())				//å¦‚æœä¸²å£æ˜¯æ‰“å¼€çš„ï¼Œåˆ™è¡Œå…³é—­ä¸²å£
     {
         m_mscomm.SetPortOpen(FALSE);
     }
-	if (m_fileSend.m_pStream)				//Èô·¢ËÍÎÄ¼ş´ò¿ª£¬Ôò¹Ø±Õ
+	if (m_fileSend.m_pStream)				//è‹¥å‘é€æ–‡ä»¶æ‰“å¼€ï¼Œåˆ™å…³é—­
 	{
 		m_fileSend.Close();
 	}
@@ -635,7 +635,7 @@ void CSerialToolDlg::OnTimer(UINT nIDEvent)
 	// TODO: Add your message handler code here and/or call default
 	switch(nIDEvent)
 	{
-        case 1:			//UI¸üĞÂ
+        case 1:			//UIæ›´æ–°
 			if (m_fileSend.m_pStream)
 			{
 				unsigned int posProgress = (m_pFileCurrentIndex - m_pFileText) / m_fileSendcentiLength;
@@ -649,13 +649,13 @@ void CSerialToolDlg::OnTimer(UINT nIDEvent)
 					OnButtonSettimer();
 					KillTimer(1);
 					m_fileSend.Close();
-					m_OpensendfileBut.SetWindowText("´ò¿ª·¢ËÍÎÄ¼ş");
+					m_OpensendfileBut.SetWindowText("æ‰“å¼€å‘é€æ–‡ä»¶");
 					m_SendEdit.EnableWindow(TRUE);
 					m_SendEdit.SetWindowText(NULL);
 				}
 			}
             break;
-        case 2:			//½ÓÊÕÇøÏÔÊ¾Ë¢ĞÂµÄ¶¨Ê±Æ÷
+        case 2:			//æ¥æ”¶åŒºæ˜¾ç¤ºåˆ·æ–°çš„å®šæ—¶å™¨
 			{
 				int RecvStrLen = m_RecvEdit.GetWindowTextLength();		
 				m_RecvEdit.SetSel(RecvStrLen, RecvStrLen, TRUE);
@@ -663,13 +663,13 @@ void CSerialToolDlg::OnTimer(UINT nIDEvent)
 				m_RecvStrBuff.Empty();
 			}
             break;
-        case 3:			//Êı¾İ°ü·¢ËÍ
+        case 3:			//æ•°æ®åŒ…å‘é€
 			{
-				m_mscomm.SetOutput(COleVariant(m_SendPackStr));		//Êı¾İ°üÏÈ·¢ËÍÈ·±£Ê±¼ä£¬Ö®ºóÔÙ¶ÁÈ¡Êı¾İÒÔ½µµÍÑÓ³Ù
+				m_mscomm.SetOutput(COleVariant(m_SendPackStr));		//æ•°æ®åŒ…å…ˆå‘é€ç¡®ä¿æ—¶é—´ï¼Œä¹‹åå†è¯»å–æ•°æ®ä»¥é™ä½å»¶è¿Ÿ
 
 				m_SendPackStr.Empty();
 				int ret = 0, retCount = 0;
-				while (0 == ret && retCount < 3)		//Ìø¹ı3ĞĞ·Ç·¨×Ö·û´®£¬!!!¾ßÌåĞĞÊıÔÙÂÛ!!!
+				while (0 == ret && retCount < 3)		//è·³è¿‡3è¡Œéæ³•å­—ç¬¦ä¸²ï¼Œ!!!å…·ä½“è¡Œæ•°å†è®º!!!
 				{
 					ret = CSerialToolDlgFunc::ProcessingData(m_pFileCurrentIndex, m_SendPackStr);
 					++retCount;
@@ -715,7 +715,7 @@ void CSerialToolDlg::OnButtonSettimer()
 void CSerialToolDlg::OnButtonRecvsave() 
 {
 	// TODO: Add your control notification handler code here
-	LPCTSTR szFilter = "ÎÄ¼ş (*.txt)|*.txt|ËùÓĞÎÄ¼ş (*.*)|*.*||";
+	LPCTSTR szFilter = "æ–‡ä»¶ (*.txt)|*.txt|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*||";
 	CString strPathName;
 	CFileDialog fd(FALSE,"*.txt", NULL, OFN_HIDEREADONLY, szFilter);	
 
@@ -723,8 +723,8 @@ void CSerialToolDlg::OnButtonRecvsave()
 	{
 		m_fileRecv.Close();
 		m_bRecordRecv = FALSE;
-		AfxMessageBox("±£´æ³É¹¦£¡");
-		m_RecvSaveBut.SetWindowText("¼ÇÂ¼½ÓÊÕÇø");
+		AfxMessageBox("ä¿å­˜æˆåŠŸï¼");
+		m_RecvSaveBut.SetWindowText("è®°å½•æ¥æ”¶åŒº");
 	}
 	else
 	{
@@ -734,14 +734,14 @@ void CSerialToolDlg::OnButtonRecvsave()
 		
 		if(!m_fileRecv.Open(strPathName, CFile::modeCreate | CFile::modeWrite | CFile::typeBinary))
 		{
-			AfxMessageBox("±£´æÊ§°Ü£¡");
+			AfxMessageBox("ä¿å­˜å¤±è´¥ï¼");
 			m_bRecordRecv = FALSE;
-			m_RecvSaveBut.SetWindowText("¼ÇÂ¼½ÓÊÕÇø");
+			m_RecvSaveBut.SetWindowText("è®°å½•æ¥æ”¶åŒº");
 		}
 		else
 		{
 			m_bRecordRecv = TRUE;
-			m_RecvSaveBut.SetWindowText("¼ÇÂ¼ÖĞ¡­¡­");
+			m_RecvSaveBut.SetWindowText("è®°å½•ä¸­â€¦â€¦");
 		}
 	}
 }
